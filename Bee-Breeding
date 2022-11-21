@@ -1,0 +1,21 @@
+from operator import sub
+def is_spiral(start_num, end_num):
+    if start_num != 0 and end_num != 0 and start_num and end_num <= 1000 and start_num != end_num:
+        return shortest_distance(start_num, end_num)
+
+def shortest_distance(start_num, end_num, spiral=[[0, 0, 0] * 2]):
+    co_ord = ((1, 0, -1), (1, -1, 0), (0, -1, 1), (-1, 0, 1), (-1, 1, 0), (0, 1, -1))
+    for i in range(max(start_num, end_num)):
+        for index, values in enumerate(co_ord):
+            for k in range(i - (1 == index) * 1):
+                spiral.append(list(map(sum, list(zip(spiral[-1], values)))))
+    distance = max(list(map(abs, list(map(sub, *[spiral[end_num], spiral[start_num]])))))
+    return distance - 1
+
+for i in range(50):
+    start_num = int(input("Enter the first number : "))
+    end_num = int(input("Enter the last number : "))
+    if start_num == 0 and end_num == 0:
+        break
+    else:
+        print("Shortest distance of the two nodes is : ", is_spiral(start_num, end_num))
